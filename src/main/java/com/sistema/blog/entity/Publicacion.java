@@ -1,0 +1,51 @@
+package com.sistema.blog.entity;
+
+import com.sistema.blog.dto.PublicacionDTO;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "publicaciones")
+@Getter
+@Setter
+public class Publicacion {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "titulo")
+    private String titulo;
+
+    @Column(name = "descripcion")
+    private String descripcion;
+
+    @Column(name = "contenido")
+    private String contenido;
+
+    @OneToMany(mappedBy = "publicacion",cascade = CascadeType.ALL, orphanRemoval = true)
+
+    private Set<Comentario> comentarios = new HashSet<>();
+
+    public Publicacion() {
+
+    }
+
+    public PublicacionDTO mapearPublicacionDTO(){
+        return new PublicacionDTO(id,titulo,descripcion,contenido);
+    }
+
+    public Publicacion(Long id, String titulo, String descripcion, String contenido) {
+        this.id = id;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.contenido = contenido;
+    }
+
+
+
+}
