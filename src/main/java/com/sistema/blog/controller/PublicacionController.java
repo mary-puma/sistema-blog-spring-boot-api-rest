@@ -1,32 +1,34 @@
 package com.sistema.blog.controller;
 
 import com.sistema.blog.dto.PublicacionDTO;
-import com.sistema.blog.entity.Publicacion;
 import com.sistema.blog.service.PublicacionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/publicaciones")
 public class PublicacionController {
-
-    private static final String PUBLICACIONES = "/api/publicaciones";
 
     @Autowired
     private PublicacionService publicacionService;
 
-    @PostMapping(PUBLICACIONES)
+    @PostMapping
     public PublicacionDTO guardarPublicacion(@RequestBody PublicacionDTO publicacionDTO){
         return publicacionService.crearPublicacion(publicacionDTO);
     }
 
-    @GetMapping(PUBLICACIONES)
+    @GetMapping
     public List<PublicacionDTO> publicacionDTOList(){
         return publicacionService.obtenerTodasLasPublicaciones();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PublicacionDTO> obtenerPublicacionDTOPorId(@PathVariable (name = "id") long id){
+        return ResponseEntity.ok(publicacionService.publicacionPorId(id));
     }
 
 

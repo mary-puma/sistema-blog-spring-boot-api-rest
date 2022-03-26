@@ -27,23 +27,11 @@ public class Publicacion {
     @Column(name = "contenido")
     private String contenido;
 
-    @OneToMany(mappedBy = "publicacion",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL, orphanRemoval = true)
 
     private Set<Comentario> comentarios = new HashSet<>();
 
     public Publicacion() {
-
-    }
-
-    public PublicacionDTO mapearPublicacionDTO(){
-        return new PublicacionDTO(id,titulo,descripcion,contenido);
-    }
-
-    public Publicacion(Long id, String titulo, String descripcion, String contenido) {
-        this.id = id;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.contenido = contenido;
     }
 
 
