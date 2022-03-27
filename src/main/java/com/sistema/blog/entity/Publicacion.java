@@ -1,6 +1,5 @@
 package com.sistema.blog.entity;
 
-import com.sistema.blog.dto.PublicacionDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,7 +32,5 @@ public class Publicacion {
 
     public Publicacion() {
     }
-
-
 
 }

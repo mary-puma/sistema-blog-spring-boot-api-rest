@@ -55,4 +55,15 @@ public class PublicacionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Publicacion", "id", id));
         return mapearPublicacionDTO(publicacion);
     }
+
+    public void eliminarPublicacion(String name) {
+        Publicacion publicacion = publicacionRepository.findPublicationByTitle(name)
+                .orElseThrow(() -> new ResourceNotFoundException("Publicacion", "titulo", name));
+        publicacionRepository.delete(publicacion);
+    }
+
+    public void eliminarPublicacionPorID(long id){
+        Publicacion publicacion = publicacionRepository.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("Publicacion","id",id));
+    }
 }
