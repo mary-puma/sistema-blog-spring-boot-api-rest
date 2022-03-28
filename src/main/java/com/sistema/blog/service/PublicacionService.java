@@ -1,5 +1,6 @@
 package com.sistema.blog.service;
 
+import com.sistema.blog.dto.PublicacionDetallesDTO;
 import com.sistema.blog.excepciones.ResourceNotFoundException;
 import com.sistema.blog.dto.PublicacionDTO;
 import com.sistema.blog.entity.Publicacion;
@@ -62,8 +63,36 @@ public class PublicacionService {
         publicacionRepository.delete(publicacion);
     }
 
-    public void eliminarPublicacionPorID(long id){
+    public void eliminarPublicacionPorID(long id) {
         Publicacion publicacion = publicacionRepository.findById(id)
-                .orElseThrow(()->new ResourceNotFoundException("Publicacion","id",id));
+                .orElseThrow(() -> new ResourceNotFoundException("Publicacion", "id", id));
+    }
+
+    public PublicacionDTO actualizarPublicacionPorID(PublicacionDTO publicacionDTO, long id) {
+        Publicacion publicacion = publicacionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Publicacion", "id", id));
+        publicacion.setTitulo(publicacionDTO.getTitulo());
+        publicacion.setContenido(publicacionDTO.getContenido());
+        publicacion.setDescripcion(publicacionDTO.getDescripcion());
+        Publicacion publicacion2 = publicacionRepository.save(publicacion);
+        return mapearPublicacionDTO(publicacion2);
+
+    }
+
+    public List<PublicacionDetallesDTO> obtenerListaDePublicaciones() {
+        List<Publicacion> publicaciones = publicacionRepository.findAll();
+        List<PublicacionDetallesDTO> publicacionDetallesDTOList = publicaciones.stream()
+                .map(this::mapearPublicacionDetalleDTO)
+                .collect(Collectors.toList());
+        return publicacionDetallesDTOList;
+    }
+
+    private PublicacionDetallesDTO mapearPublicacionDetalleDTO(Publicacion publicacion) {
+        PublicacionDetallesDTO publicacionDetallesDTO = new PublicacionDetallesDTO();
+        publicacionDetallesDTO.setComentarios(publicacion.getComentarios());
+        publicacionDetallesDTO.setDescripcion(publicacion.getDescripcion());
+        publicacionDetallesDTO.setContenido((publicacion.getContenido()));
+        publicacionDetallesDTO.setTitulo(publicacion.getTitulo());
+        return publicacionDetallesDTO;
     }
 }
