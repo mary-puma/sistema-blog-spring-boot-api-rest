@@ -14,6 +14,6 @@ public class PublicacionDetallesDTO {
     private String titulo;
     private String descripcion;
     private String contenido;
-    private Set<Comentario> comentarios;
+    private List<String> comentarios;
 
 }

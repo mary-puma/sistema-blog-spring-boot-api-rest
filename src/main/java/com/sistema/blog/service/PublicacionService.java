@@ -1,6 +1,7 @@
 package com.sistema.blog.service;
 
 import com.sistema.blog.dto.PublicacionDetallesDTO;
+import com.sistema.blog.entity.Comentario;
 import com.sistema.blog.excepciones.ResourceNotFoundException;
 import com.sistema.blog.dto.PublicacionDTO;
 import com.sistema.blog.entity.Publicacion;
@@ -89,10 +90,18 @@ public class PublicacionService {
 
     private PublicacionDetallesDTO mapearPublicacionDetalleDTO(Publicacion publicacion) {
         PublicacionDetallesDTO publicacionDetallesDTO = new PublicacionDetallesDTO();
-        publicacionDetallesDTO.setComentarios(publicacion.getComentarios());
+        publicacionDetallesDTO.setComentarios(mapearPublicacionComentarios(publicacion));
         publicacionDetallesDTO.setDescripcion(publicacion.getDescripcion());
         publicacionDetallesDTO.setContenido((publicacion.getContenido()));
         publicacionDetallesDTO.setTitulo(publicacion.getTitulo());
         return publicacionDetallesDTO;
     }
+
+    private List<String> mapearPublicacionComentarios(Publicacion publicacion) {
+       return publicacion.getComentarios().stream()
+                .map(Comentario::getCuerpo)
+                .collect(Collectors.toList());
+    }
+
+    //hacer que muestre la publicacion con los comentarios asociados, cometarios con estos campos email y cuerpo
 }
