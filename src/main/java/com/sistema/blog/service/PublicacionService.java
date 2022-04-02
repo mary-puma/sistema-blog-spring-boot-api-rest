@@ -80,7 +80,7 @@ public class PublicacionService {
 
     }
 
-    public List<PublicacionDetallesDTO> obtenerListaDePublicaciones() {
+    public List<PublicacionDetallesDTO> listaDePublicacionesYSusComentarios() {
         List<Publicacion> publicaciones = publicacionRepository.findAll();
         List<PublicacionDetallesDTO> publicacionDetallesDTOList = publicaciones.stream()
                 .map(this::mapearPublicacionDetalleDTO)

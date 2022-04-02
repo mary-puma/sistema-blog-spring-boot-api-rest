@@ -1,6 +1,7 @@
 package com.sistema.blog.service;
 
 import com.sistema.blog.dto.ComentarioDTO;
+import com.sistema.blog.dto.ComentarioDetallesDTO;
 import com.sistema.blog.entity.Comentario;
 import com.sistema.blog.entity.Publicacion;
 import com.sistema.blog.excepciones.ResourceNotFoundException;
@@ -8,6 +9,9 @@ import com.sistema.blog.repository.ComentarioRepository;
 import com.sistema.blog.repository.PublicacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ComentarioService {
@@ -44,5 +48,29 @@ public class ComentarioService {
         comentarioDTO.setEmail(comentario.getEmail());
         comentarioDTO.setNombre(comentario.getNombre());
         return comentarioDTO;
+    }
+
+    public List<ComentarioDTO> listarComentarios() {
+        List<Comentario> comentarios = comentarioRepository.findAll();
+        return comentarios.stream()
+                .map(this::mapearComentarioDTO)
+                .collect(Collectors.toList());
+    }
+
+    public List<ComentarioDetallesDTO> listarComentariosDetalles() {
+        List<Comentario> comentarios = comentarioRepository.findAll();
+        return comentarios.stream()
+                .map(this::mapearComentarioDetalles)
+                .collect(Collectors.toList());
+    }
+
+    public ComentarioDetallesDTO mapearComentarioDetalles(Comentario comentario){
+        ComentarioDetallesDTO comentarioDetallesDTO = new ComentarioDetallesDTO();
+        comentarioDetallesDTO.setCuerpo(comentario.getCuerpo());
+        comentarioDetallesDTO.setEmail(comentario.getEmail());
+        comentarioDetallesDTO.setId(comentario.getId());
+        comentarioDetallesDTO.setNombre(comentario.getNombre());
+        comentarioDetallesDTO.setTituloPublicacion(comentario.getPublicacion().getTitulo());
+        return comentarioDetallesDTO;
     }
 }

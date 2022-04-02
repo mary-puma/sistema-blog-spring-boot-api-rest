@@ -32,6 +32,11 @@ public class PublicacionController {
         return ResponseEntity.ok(publicacionService.publicacionPorId(id));
     }
 
+    @GetMapping("/detalles")
+    public List<PublicacionDetallesDTO> obtenerPublicacionYSusComentarios(){
+        return publicacionService.listaDePublicacionesYSusComentarios();
+    }
+
     @DeleteMapping("/{titulo}")
     public ResponseEntity<String> eliminarPublicacionPorTitulo(@PathVariable(name = "titulo") String name) {
         publicacionService.eliminarPublicacion(name);
@@ -42,14 +47,6 @@ public class PublicacionController {
     public ResponseEntity<PublicacionDTO> actualizarPublicacion(@PathVariable(name = "id") long id, @RequestBody PublicacionDTO publicacionDTO){
         PublicacionDTO publicacion = publicacionService.actualizarPublicacionPorID(publicacionDTO, id);
         return ResponseEntity.ok(publicacion);
-
     }
-
-    @GetMapping("/detalles")
-    public List<PublicacionDetallesDTO> obtenerPublicacionYSusComentarios(){
-        return publicacionService.obtenerListaDePublicaciones();
-    }
-
-
 
 }
