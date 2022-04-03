@@ -32,7 +32,4 @@ public class Publicacion {
 
     public Publicacion() {
     }
-
-
-
 }
