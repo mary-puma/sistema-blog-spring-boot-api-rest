@@ -1,8 +1,12 @@
 package com.sistema.blog.excepciones;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
-public class BlogAppException extends RuntimeException{
+@Setter
+@Getter
+public class BlogAppException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
@@ -13,6 +17,10 @@ public class BlogAppException extends RuntimeException{
         super();
         this.estado = estado;
         this.mensaje = mensaje;
+    }
+
+    public String getMessage() {
+        return mensaje;
     }
 
 }

@@ -1,41 +1,22 @@
 package com.sistema.blog.excepciones;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
+@Getter
+@Setter
 public class ErrorDetalles {
 
     private Date marcaDeTiempo;
-    private String mensaje;
+    private String mensaje1;
     private String detalles;
 
-    public ErrorDetalles(Date marcaDeTiempo, String mensaje, String detalles) {
+    public ErrorDetalles(Date marcaDeTiempo, String mensaje1, String detalles) {
         super();
         this.marcaDeTiempo = marcaDeTiempo;
-        this.mensaje = mensaje;
-        this.detalles = detalles;
-    }
-
-    public Date getMarcaDeTiempo() {
-        return marcaDeTiempo;
-    }
-
-    public void setMarcaDeTiempo(Date marcaDeTiempo) {
-        this.marcaDeTiempo = marcaDeTiempo;
-    }
-
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
-
-    public String getDetalles() {
-        return detalles;
-    }
-
-    public void setDetalles(String detalles) {
+        this.mensaje1 = mensaje1;
         this.detalles = detalles;
     }
 
