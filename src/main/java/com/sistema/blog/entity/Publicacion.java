@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "publicaciones")
+@Table(name = "publicacion", uniqueConstraints = {@UniqueConstraint(columnNames = {"titulo"})})
 @Getter
 @Setter
 public class Publicacion {
